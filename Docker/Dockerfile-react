@@ -1,0 +1,17 @@
+FROM loyaltyone/docker-alpine-java-node
+
+MAINTAINER eatmarcus
+
+COPY web /app/react/
+
+RUN chmod 777 -R /app
+
+WORKDIR /app/react
+
+RUN npm install
+
+EXPOSE 80
+
+ENTRYPOINT npm start
+
+
