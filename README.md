@@ -5,34 +5,39 @@ ACL GENERATOR</font></p><head><html>
 Requirements :
 
         1.  Spring Boot
+        2.  Node.js
+        3.  Docker-machine (optional)
         
-Usage :
+Usage: 
 
-        1. Clone the Git repo
+    Without Docker:
+        1. Start the Springboot server - run the compiled jar using the cmd "java -jar ./target/policy-0.0.1-SNAPSHOT.jar"
         
-        2. Compile and Run the Springboot App
-            - this will automatically create a DB instance in your project root folder "acldb"
-            - automatically create the schema and bootstrap the data (see schema.sql and data.sql in src/main/resources/)
-            - in your console, there will be a Scanner asking you to "Enter a Policy ID". Do not enter anything 
-            if you have not yet inserted anything into the DB
-        
-        3. Go to localhost:8080/h2-console or for some users, enter 'your-ip':8080/h2-console
+        2. Start the React server - "cd web" followed by "npm start"
+
+        3. Access the site at localhost:3000
+
+
+    With Docker:
+        I have written a docker-compose.yml to automatically start up these two as containers.
+
+        1. Build the two images in your local docker-machine - "docker-compose build"
+
+        2. Deploy the two containers - "docker-compose up"
+
+        3. Access the site at localhost:80
+
+
+H2 database:
+
+    1.  Go to localhost:8080/h2-console or for some users, enter 'your-ip':8080/h2-console
             - you should see a h2-console login page
             - change JDBC Url to 'jdbc:h2:file:./acldb'  <-- this is to access the generated db instance from your file system.
             - you should be able to see the tables and data
-        
-        4. Insert your new Policy information into the DB using SQL scripts. *Note: you may do so either via the h2-console or by
-            writing the scripts in data.sql in src/main/resources as aforementioned*
-            - To aid you in your insertion, insert in this order 
-                **PolicySet -> Policy -> Policy_Predicate -> Rules -> Rules_Predicate -> Rules_Condition -> Predicate_Value_Condition**
-            - See the Entity Relation Diagram to have a better idea of the key mapping and refer to the example.xml to see what 
-              each column represents
-        
-        5. Now that the PolicySet is in the DB, you may:
-            1. go back to the console in runtime and enter the PolicySet ID (primary key).
-                **OR**
-            2. go to localhost:8080 or 'your-ip':8080 and you will see a simple HTML form. Enter the PolicySet there for it to be
-            downloaded via the web browser.
+
+    2.  Since H2 is an in-memory database, do note that anything saved inside the DB will be gone once you restart the server.
+        To persist you data, add your policy into data.sql and recompile the app - "mvn package"
+        This will ensure that your data will be bootstrapped into H2 when your server starts.
 
 ER Diagram:
 
