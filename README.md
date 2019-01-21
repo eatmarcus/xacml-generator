@@ -11,9 +11,10 @@ Requirements :
 Usage: 
 
     Without Docker:
-        1. Start the Springboot server - run the compiled jar using the cmd "java -jar ./target/policy-0.0.1-SNAPSHOT.jar"
+        1. Start the Springboot server - run the compiled jar using the cmd "java -jar ./target/policybuilder-0.0.1-SNAPSHOT.jar"
         
-        2. Start the React server - "cd web" followed by "npm start"
+        2. Start the React server - in another terminal, run "cd web" followed by "npm install"
+        Once that is done, run "npm start"
 
         3. Access the site at localhost:3000
 
